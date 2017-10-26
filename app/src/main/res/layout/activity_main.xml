@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.everis.hackaton.metropolitanoapp.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+
+            android:layout_below="@+id/topBar"
+            android:layout_above="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/myViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:adjustViewBounds="false" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtSDEnuncniado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Saldo disponible :"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="11dp"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toStartOf="@+id/btnRecargaFija" />
+
+            <TextView
+                android:id="@+id/txtSDMonto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="77dp"
+                android:text="S/. 5.50"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:layout_alignTop="@+id/txtSDEnuncniado"
+                android:layout_alignParentEnd="true" />
+
+            <Button
+                android:id="@+id/btnRecargaFija"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/txtSDMonto"
+                android:layout_below="@+id/txtSDMonto"
+                android:layout_marginTop="19dp"
+                android:text="+ S/. 2.50"
+                android:backgroundTint="@color/azul"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/btnRecargaOtro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recargar otro monto"
+                android:backgroundTint="@color/azul"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_below="@+id/btnRecargaFija"
+                android:layout_alignEnd="@+id/btnRecargaFija" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/bottomBar"
+            android:layout_alignParentBottom="true">
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@drawable/white_grey_border_top"
+                app:menu="@menu/navigation" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
