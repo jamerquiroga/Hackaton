@@ -12,4 +12,11 @@
     <color name="anaranjado">#E65100</color>
     <color name="white">#ffffff</color>
     <color name="white_trans">#99FFFFFF</color>
+    <color name="turquesa">#3F51B5</color>
+    <color name="celeste">#ffe605</color>
+    <color name="negro">#020000</color>
+
+
+
+
 </resources>
