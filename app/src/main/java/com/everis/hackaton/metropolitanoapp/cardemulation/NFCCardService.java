@@ -26,11 +26,20 @@ public class NFCCardService extends HostApduService {
         switch (checkForAIDPermission(apdu)) {
             case READ:
                 Log.i("HCEDEMO", "Accediendo a la informacion de las tarjetas");
-                cardProvider.prepare(userProvider.getUser());
+                if (!cardProvider.prepare(userProvider.getUser())) {
+                    Log.i("HCEDEMO", "Error al intentar conectarse a la base de datos");
+                    return null;
+                }
+
                 Log.i("HCEDEMO", "Tarjeta activada en modo de lectura");
                 currentPermission = AIDPermission.READ;
                 return "ok read".getBytes();
             case WRITE:
+                Log.i("HCEDEMO", "Accediendo a la informacion de las tarjetas");
+                if (!cardProvider.prepare(userProvider.getUser())) {
+                    Log.i("HCEDEMO", "Error al intentar conectarse a la base de datos");
+                    return null;
+                }
                 Log.i("HCEDEMO", "Tarjeta activada en modo de escritura");
                 currentPermission = AIDPermission.WRITE;
                 return "ok write".getBytes();
@@ -100,15 +109,15 @@ public class NFCCardService extends HostApduService {
                 case "ultimoIngreso":
                     return Long.toString(curCard.ultimoIngreso);
                 case "idTipo":
-                    return Integer.toString(curCard.tipoTarjeta.value);
+                    return Integer.toString(curCard.getTipoTarjeta().value);
             }
         else if (comm[0].equals("write") && currentPermission == AIDPermission.WRITE) {
             String param = comm[2];
             switch (comm[1]) {
                 case "saldo":
-                    Log.i("HCEDEMO", "Saldo antes de cargar: " + curCard.saldo);
+                    Log.i("HCEDEMO", "Saldo antes de cambiar el saldo: " + curCard.saldo);
                     curCard.saldo = Double.parseDouble(param);
-                    Log.i("HCEDEMO", "Saldo luego de cargar: " + curCard.saldo);
+                    Log.i("HCEDEMO", "Saldo luego de cambiar el saldo: " + curCard.saldo);
                     break;
                 case "ultimoIngreso":
                     Log.i("HCEDEMO", "Ultimo ingreso: " + curCard.saldo);
