@@ -1,5 +1,7 @@
 package com.everis.hackaton.metropolitanoapp.model;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.everis.hackaton.metropolitanoapp.model.base.Card;
@@ -20,8 +22,18 @@ public class CardProvider {
     private Card[] cardHolder = null;
     private int currentCard = -1;
 
-    public boolean prepare(User user) { // TODO : Removed hardcoded part
-        Retrofit builder = new Retrofit.Builder().baseUrl("http://192.168.43.13:3000").build();
+    public void actualizarSaldo(Context ctx, String salgoNuevo) {
+        SharedPreferences pref = ctx.getSharedPreferences("cardprovider", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor sprefEdit = pref.edit();
+        sprefEdit.putString("saldo", salgoNuevo);
+        cardHolder[0].saldo = Double.parseDouble(salgoNuevo);
+        sprefEdit.apply();
+    }
+
+    public boolean prepare(Context ctx, User user) { // TODO : Removed hardcoded part
+        SharedPreferences pref = ctx.getSharedPreferences("cardprovider", Context.MODE_PRIVATE);
+        /*Retrofit builder = new Retrofit.Builder().baseUrl("http://192.168.43.13:3000").build();
         remote = builder.create(BusinessRemoteAccess.class);
 
         try {
@@ -32,13 +44,13 @@ public class CardProvider {
                 cardHolder = (Card[]) response.body().toArray();
         } catch (Exception ex) {
             return false;
-        }
+        }*/
 
-        /*cardHolder = new Card[1];
+        cardHolder = new Card[1];
         Card c = new Card();
-        c.saldo = 10;
+        c.saldo = Double.parseDouble(pref.getString("saldo", "10"));
         c.ultimoIngreso = new Date().getTime();
-        cardHolder[0] = c;*/
+        cardHolder[0] = c;
 
         currentCard = 0;
 

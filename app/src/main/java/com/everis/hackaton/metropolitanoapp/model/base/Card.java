@@ -8,7 +8,7 @@ public class Card {
     public long id = 0;
     public double saldo = 0;
     public long ultimoIngreso = 0L;
-    private int idt = 0;
+    private int tipoTarjeta = 0;
 
     public enum TipoTarjeta { // TODO: Esto deberia cargarse desde back tambien
         General(1), Universitario(2), Escolar(3);
@@ -20,7 +20,7 @@ public class Card {
     }
 
     public TipoTarjeta getTipoTarjeta () {
-        switch (idt) {
+        switch (tipoTarjeta) {
             case 1: return TipoTarjeta.General;
             case 2: return TipoTarjeta.Universitario;
             default: return TipoTarjeta.Escolar;

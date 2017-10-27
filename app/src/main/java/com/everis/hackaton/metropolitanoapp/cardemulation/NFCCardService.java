@@ -26,7 +26,7 @@ public class NFCCardService extends HostApduService {
         switch (checkForAIDPermission(apdu)) {
             case READ:
                 Log.i("HCEDEMO", "Accediendo a la informacion de las tarjetas");
-                if (!cardProvider.prepare(userProvider.getUser())) {
+                if (!cardProvider.prepare(this, userProvider.getUser())) {
                     Log.i("HCEDEMO", "Error al intentar conectarse a la base de datos");
                     return null;
                 }
@@ -36,7 +36,7 @@ public class NFCCardService extends HostApduService {
                 return "ok read".getBytes();
             case WRITE:
                 Log.i("HCEDEMO", "Accediendo a la informacion de las tarjetas");
-                if (!cardProvider.prepare(userProvider.getUser())) {
+                if (!cardProvider.prepare(this, userProvider.getUser())) {
                     Log.i("HCEDEMO", "Error al intentar conectarse a la base de datos");
                     return null;
                 }
@@ -116,7 +116,7 @@ public class NFCCardService extends HostApduService {
             switch (comm[1]) {
                 case "saldo":
                     Log.i("HCEDEMO", "Saldo antes de cambiar el saldo: " + curCard.saldo);
-                    curCard.saldo = Double.parseDouble(param);
+                    cardProvider.actualizarSaldo(this, param);
                     Log.i("HCEDEMO", "Saldo luego de cambiar el saldo: " + curCard.saldo);
                     break;
                 case "ultimoIngreso":
