@@ -1,6 +1,7 @@
 package com.everis.hackaton.metropolitanoapp;
 
 import android.content.DialogInterface;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -20,6 +21,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.everis.hackaton.metropolitanoapp.paypal.PaypalIntegration;
+import com.paypal.android.sdk.payments.PayPalItem;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
+
+import org.json.JSONException;
+
+import java.math.BigDecimal;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView txtSDMonto;
@@ -28,6 +39,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CustomAdapter adapter;
     ViewPager viewPager;
 
+   private TextView txtSDMonto;
+   private Button btnRecargaFija;
+   private CustomAdapter adapter;
+   private ViewPager viewPager;
+   private PayPalPayment thingToBuy;
+    public double monto;
     int color = R.color.amarillo;
     int color2 = R.color.verde;
     int color3 = R.color.anaranjado;
@@ -82,6 +99,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menuItem.setChecked(true);
 
         colorStatusBar(this.color);
+
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, PaypalIntegration.config);
+        startService(intent);
+
+        btnRecargaFija.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                thingToBuy = new PayPalPayment(new BigDecimal(monto), "USD",
+                        "Recarga", PayPalPayment.PAYMENT_INTENT_SALE);
+                Intent intent = new Intent(MainActivity.this,
+                        PaymentActivity.class);
+
+                intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
+
+                startActivityForResult(intent, PaypalIntegration.REQUEST_CODE_PAYMENT);
+            }
+        });
 
 
     }
@@ -142,16 +178,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 btnRecargaFija.setText("+ S/. 2.50");
                 txtSDMonto.setText("S/. 5.50");
                 colorStatusBar(color);
+                monto = 2.50;
             }
             else if(position==1){
                 btnRecargaFija.setText("+ S/. 1.25");
                 txtSDMonto.setText("S/. 8.00");
                 colorStatusBar(color2);
+                monto = 1.25;
             }else {
                 btnRecargaFija.setText("+ S/. 1.25");
                 txtSDMonto.setText("S/. 0.50");
                 colorStatusBar(color3);
+                monto = 1.25;
+
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == Activity.RESULT_OK) {
+            PaymentConfirmation confirm = data
+                    .getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+            if (confirm != null) {
+                try {
+
+                    // informacion extra del pedido
+                    System.out.println(confirm.toJSONObject().toString(4));
+                    System.out.println(confirm.getPayment().toJSONObject()
+                            .toString(4));
+
+                    Toast.makeText(getApplicationContext(), "Orden procesada",
+                            Toast.LENGTH_LONG).show();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            System.out.println("error en transacción");
         }
     }
 

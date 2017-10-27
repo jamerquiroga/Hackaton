@@ -32,4 +32,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="cardservice_description">AID NFC Keys</string>
+    <string name="aidgroup_description">General</string>
 </resources>

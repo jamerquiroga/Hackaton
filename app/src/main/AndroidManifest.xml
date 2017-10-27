@@ -4,6 +4,7 @@
 
     <!-- Include required permissions for Google Mobile Ads to run. -->
     <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -43,6 +44,19 @@
             android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".SaludoActivity" />
         <activity android:name=".DialogFragment"></activity>
+
+        <service
+            android:name=".cardemulation.NFCCardService"
+            android:exported="true"
+            android:permission="android.permission.BIND_NFC_SERVICE" >
+            <intent-filter>
+                <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.cardemulation.host_apdu_service"
+                android:resource="@xml/nfc_servicedescription" />
+        </service>
     </application>
 
 </manifest>
