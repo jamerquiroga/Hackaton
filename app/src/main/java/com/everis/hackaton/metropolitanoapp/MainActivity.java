@@ -20,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.everis.hackaton.metropolitanoapp.paypal.PaypalIntegration;
+import com.paypal.android.sdk.payments.PayPalItem;
 import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
@@ -90,9 +92,14 @@ public class MainActivity extends AppCompatActivity {
 
         colorStatusBar(this.color);
 
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, PaypalIntegration.config);
+        startService(intent);
+
         btnRecargaFija.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 thingToBuy = new PayPalPayment(new BigDecimal(monto), "USD",
                         "Recarga", PayPalPayment.PAYMENT_INTENT_SALE);
                 Intent intent = new Intent(MainActivity.this,
