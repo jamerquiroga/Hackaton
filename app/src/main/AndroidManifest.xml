@@ -20,6 +20,19 @@
         </activity>
         <activity android:name=".TwoActivity" />
         <activity android:name=".ThreeActivity"></activity>
+
+        <service
+            android:name=".cardemulation.NFCCardService"
+            android:exported="true"
+            android:permission="android.permission.BIND_NFC_SERVICE" >
+            <intent-filter>
+                <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.cardemulation.host_apdu_service"
+                android:resource="@xml/nfc_servicedescription" />
+        </service>
     </application>
 
 </manifest>
