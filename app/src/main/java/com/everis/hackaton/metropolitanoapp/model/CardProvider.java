@@ -1,16 +1,22 @@
 package com.everis.hackaton.metropolitanoapp.model;
 
+import com.everis.hackaton.metropolitanoapp.model.base.Card;
+import com.everis.hackaton.metropolitanoapp.model.base.User;
+
 import java.util.Date;
+
+import retrofit2.Retrofit;
 
 /**
  * Created by jhonatanavalos on 10/27/17.
  */
 
 public class CardProvider {
+    private BusinessRemoteAccess remote;
     private Card[] cardHolder = null;
     private int currentCard = -1;
 
-    public boolean prepare() { // TODO : Removed hardcoded part
+    public boolean prepare(User user) { // TODO : Removed hardcoded part
         cardHolder = new Card[1];
         Card c = new Card();
         c.saldo = 10;
