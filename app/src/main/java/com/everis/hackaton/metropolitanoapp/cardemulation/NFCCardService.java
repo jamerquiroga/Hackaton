@@ -4,7 +4,8 @@ import android.nfc.cardemulation.HostApduService;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.everis.hackaton.metropolitanoapp.model.Card;
+import com.everis.hackaton.metropolitanoapp.model.AuthProvider;
+import com.everis.hackaton.metropolitanoapp.model.base.Card;
 import com.everis.hackaton.metropolitanoapp.model.CardProvider;
 
 import java.util.Arrays;
@@ -17,14 +18,15 @@ public class NFCCardService extends HostApduService {
 
     private AIDPermission currentPermission = AIDPermission.NONE;
     private CardProvider cardProvider = new CardProvider();
+    private AuthProvider userProvider = new AuthProvider();
 
     @Override
     public byte[] processCommandApdu(byte[] apdu, Bundle extras) {
-        Log.i("HCEDEMO", "Mensaje recibido: " + new String(apdu));
+        Log.i("HCEDEMO", "Paquete recibido: " + new String(apdu));
         switch (checkForAIDPermission(apdu)) {
             case READ:
                 Log.i("HCEDEMO", "Accediendo a la informacion de las tarjetas");
-                cardProvider.prepare();
+                cardProvider.prepare(userProvider.getUser());
                 Log.i("HCEDEMO", "Tarjeta activada en modo de lectura");
                 currentPermission = AIDPermission.READ;
                 return "ok read".getBytes();
@@ -34,10 +36,10 @@ public class NFCCardService extends HostApduService {
                 return "ok write".getBytes();
             default:
             case NONE:
-                if (currentPermission != AIDPermission.READ && currentPermission != AIDPermission.WRITE)
+                if (currentPermission == AIDPermission.NONE)
                     break;
 
-                Log.i("HCEDEMO", "Mensaje recibido: " + new String(apdu));
+                Log.i("HCEDEMO", "Instruccion: " + new String(apdu));
                 return respondToCommand(new String(apdu)).getBytes();
         }
         Log.i("HCEDEMO", "Mensaje ignorado: " + new String(apdu));
