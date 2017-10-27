@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.everis.hackaton.metropolitanoapp.SaludoActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="39dp"
+                app:srcCompat="@drawable/user_saludo"
+                android:layout_below="@+id/textView"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="Bienvenido"
+                android:textSize="30sp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/txtNombreUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:text="Jamer Quiroga"
+                android:textSize="40sp"
+                android:layout_below="@+id/imageView"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/txtDniEnunciado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:text="DNI :  "
+                android:textSize="20sp"
+                android:layout_below="@+id/txtNombreUsuario"
+                android:layout_toStartOf="@+id/btnMisTarjetas"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/txtUltimoIngresoEnunciado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/txtDniEnunciado"
+                android:layout_below="@+id/txtDniEnunciado"
+                android:layout_marginTop="28dp"
+                android:text="Ultimo ingreso :"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtUltimoIngresoContenido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/txtUltimoIngresoEnunciado"
+                android:layout_alignBottom="@+id/txtUltimoIngresoEnunciado"
+                android:layout_alignStart="@+id/txtDniContenido"
+                android:text="Estación Matellini"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtDniContenido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="70994942"
+                android:textSize="20sp"
+                android:layout_above="@+id/txtUltimoIngresoEnunciado"
+                android:layout_alignEnd="@+id/btnMisTarjetas"
+                android:layout_marginEnd="16dp" />
+
+            <Button
+                android:id="@+id/btnMisTarjetas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtUltimoIngresoEnunciado"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="38dp"
+                android:backgroundTint="@color/azul"
+                android:elevation="23dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Ver mis tarjetas"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(requestCode==CODE_SCAN){
             if (resultCode == RESULT_OK && data != null
                     && data.getExtras() != null) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SaludoActivity.class);
                 startActivity(intent);
             }
         }
