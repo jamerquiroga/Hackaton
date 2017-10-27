@@ -1,4 +1,4 @@
-package com.everis.hackaton.metropolitanoapp.model;
+package com.everis.hackaton.metropolitanoapp.model.base;
 
 /**
  * Created by jhonatanavalos on 10/27/17.
